@@ -1,0 +1,39 @@
+{
+  "name": "grunt-davos",
+  "description": "Grunt plugin for the Salesforce Cloud Commerce WebDav uploader.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/forkpoint/grunt-davos",
+  "author": {
+    "name": "Kiril Kirov",
+    "email": "kiril@forkpoint.com",
+    "url": "forkpoint.com/davos"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/forkpoint/grunt-davos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/forkpoint/grunt-davos/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/forkpoint/grunt-davos/blob/master/LICENSE"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-nodeunit": "^1.0.0",
+    "grunt": "~1.0.1"
+  },
+  "keywords": [
+    "davos", "gruntplugin", "demandware"
+  ]
+}
