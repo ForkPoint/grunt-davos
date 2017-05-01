@@ -1,0 +1,46 @@
+build:
+  description: 'Build'
+  tasks:
+    - 'replace_template_info'
+activate:
+  description: 'Activate codeversion'
+  tasks:
+    - 'bm_login'
+    - 'bm_activate'
+upload:
+  description: 'Upload cartridges'
+  tasks:
+    - 'davos_compress:cartridge'
+    - 'webdav_upload:cartridge'
+    - 'webdav_unzip:cartridge'
+    - 'webdav_cleanup:cartridge'
+    - 'davos_cleanup:cartridge'
+import:
+  description: 'Import site'
+  tasks:
+    - 'davos_compress:site'
+    - 'webdav_upload:site'
+    - 'bm_login'
+    - 'bm_ensure_no_import:site'
+    - 'bm_import_site:site'
+    - 'bm_checkprogress:site'
+    - 'webdav_cleanup:site'
+    - 'davos_cleanup:site'
+watch:
+  description: 'Watch and upload'
+  tasks:
+    - 'davos_watch'
+sync:
+  description: 'Sync'
+  tasks:
+    - 'davos_sync'
+test:
+  description: 'Tests'
+  tasks:
+    - clean
+    - davos
+    - nodeunit
+default:
+  description: 'Default'
+  tasks:
+    - 'upload'

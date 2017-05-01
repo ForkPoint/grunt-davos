@@ -8,66 +8,27 @@
 
 'use strict';
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
+  // Imports
+  const path = require('path'),
+    Davos = require('davos'),
+    ConfigManager = new Davos.ConfigManager();
 
-  // Project configuration.
-  grunt.initConfig({
-    jshint: {
-      all: [
-        'Gruntfile.js',
-        'tasks/*.js',
-        '<%= nodeunit.tests %>'
-      ],
-      options: {
-        jshintrc: '.jshintrc'
-      }
-    },
+  let davosOptions = {
 
-    // Before generating any new files, remove any previously-created files.
-    clean: {
-      tests: ['tmp']
-    },
+  };
 
-    // Configuration to be run (and then tested).
-    davos: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      }
-    },
+  grunt.option('davos', new Davos.Core(davosOptions, ConfigManager));
+  grunt.option('bm', new Davos.BM(davosOptions, ConfigManager));
+  grunt.option('webdav', new Davos.WebDav(davosOptions, ConfigManager));
 
-    // Unit tests.
-    nodeunit: {
-      tests: ['test/*_test.js']
-    }
-
-  });
-
-  // Actually load this plugin's task(s).
+  // load all grunt tasks
   grunt.loadTasks('tasks');
 
-  // These plugins provide necessary tasks.
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-nodeunit');
-
-  // Whenever the "test" task is run, first clean the "tmp" dir, then run this
-  // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'davos', 'nodeunit']);
-
-  // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
+  // load all grunt configs, look in the config directory to modify configuration for any specific task
+  require('load-grunt-config')(grunt, {
+    configPath: path.join(process.cwd(), 'config'),
+    init: true
+  });
 
 };
